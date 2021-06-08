@@ -8,7 +8,7 @@ class ModelCentre {
  private $id, $label, $adresse;
 
  // pas possible d'avoir 2 constructeurs
- public function __construct($id = NULL, $label = NULL, $doses = NULL) {
+ public function __construct($id = NULL, $label = NULL, $adresse = NULL) {
   // valeurs nulles si pas de passage de parametres
   if (!is_null($id)) {
    $this->id = $id;

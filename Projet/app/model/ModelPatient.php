@@ -1,18 +1,19 @@
 
-<!-- ----- debut ModelVin -->
+<!-- ----- debut ModelPatient -->
 
 <?php
 require_once 'Model.php';
 
 class ModelCentre {
- private $id, $label, $adresse;
+ private $id, $nom,$prenom, $adresse;
 
  // pas possible d'avoir 2 constructeurs
- public function __construct($id = NULL, $label = NULL, $doses = NULL) {
+ public function __construct($id = NULL, $nom = NULL, $prenom = NULL,$adresse = NULL) {
   // valeurs nulles si pas de passage de parametres
   if (!is_null($id)) {
    $this->id = $id;
-   $this->label = $label;
+   $this->nom = $nom;
+   $this->prenom = $prenom;
    $this->adresse = $adresse;
   }
  }
@@ -21,10 +22,12 @@ class ModelCentre {
   $this->id = $id;
  }
 
- function setLabel($label) {
-  $this->label = $label;
+ function setNom($nom) {
+  $this->nom = $nom;
  }
-
+ function setPrenom($prenom) {
+  $this->prenom = $prenom;
+ }
  function setAdresse($adresse) {
   $this->adresse = $adresse;
  }
@@ -33,10 +36,14 @@ class ModelCentre {
   return $this->id;
  }
 
- function getLabel() {
-  return $this->label;
+ function getNom() {
+  return $this->nom;
  }
-
+ 
+function getPrenom() {
+  return $this->prenom;
+ } 
+ 
 
  function getAdresse() {
   return $this->adresse;
@@ -132,4 +139,4 @@ class ModelCentre {
 
 }
 ?>
-<!-- ----- fin ModelVaccin -->
+<!-- ----- fin ModelPatient -->
