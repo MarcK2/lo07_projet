@@ -4,7 +4,7 @@
 <?php
 require_once 'Model.php';
 
-class ModelCentre {
+class Modelpatient {
  private $id, $nom,$prenom, $adresse;
 
  // pas possible d'avoir 2 constructeurs
@@ -54,7 +54,7 @@ function getPrenom() {
  public static function getAllId() {
   try {
    $database = Model::getInstance();
-   $query = "select id from centre order by id";
+   $query = "select id from patient order by id";
    $statement = $database->prepare($query);
    $statement->execute();
    $results = $statement->fetchAll(PDO::FETCH_COLUMN, 0);
@@ -70,7 +70,7 @@ function getPrenom() {
    $database = Model::getInstance();
    $statement = $database->prepare($query);
    $statement->execute();
-   $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelCentre");
+   $results = $statement->fetchAll(PDO::FETCH_CLASS, "Modelpatient");
    return $results;
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
@@ -81,10 +81,10 @@ function getPrenom() {
  public static function getAll() {
   try {
    $database = Model::getInstance();
-   $query = "select * from centre";
+   $query = "select * from patient";
    $statement = $database->prepare($query);
    $statement->execute();
-   $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelCentre");
+   $results = $statement->fetchAll(PDO::FETCH_CLASS, "Modelpatient");
    return $results;
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
@@ -95,12 +95,12 @@ function getPrenom() {
  public static function getOne($id) {
   try {
    $database = Model::getInstance();
-   $query = "select * from centre where id = :id";
+   $query = "select * from patient where id = :id";
    $statement = $database->prepare($query);
    $statement->execute([
      'id' => $id
    ]);
-   $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelCentre");
+   $results = $statement->fetchAll(PDO::FETCH_CLASS, "Modelpatient");
    return $results;
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
@@ -108,23 +108,24 @@ function getPrenom() {
   }
  }
 
- public static function insert($label,$adresse) {
+ public static function insert($nom, $prenom, $adresse) {
   try {
    $database = Model::getInstance();
 
    // recherche de la valeur de la clé = max(id) + 1
-   $query = "select max(id) from centre";
+   $query = "select max(id) from patient";
    $statement = $database->query($query);
    $tuple = $statement->fetch();
    $id = $tuple['0'];
    $id++;
 
    // ajout d'un nouveau tuple;
-   $query = "insert into centre value (:id, :label, :adresse)";
+   $query = "insert into patient value (:id, :nom, :prenom, :adresse)";
    $statement = $database->prepare($query);
    $statement->execute([
      'id' => $id,
-     'label' => $label,
+     'nom' => $nom,
+     'prenom' => $prenom, 
      'adresse' => $adresse
    ]);
    return $id;

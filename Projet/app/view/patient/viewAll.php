@@ -12,22 +12,23 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
       ?>
       
-      <h2><b>Vue app/view/centre/viewAll</b></h2> 
+      <h2><b>Vue app/view/patient/viewAll</b></h2> 
 
     <table class = "table table-striped table-bordered">
       <thead>
         <tr>
           <th scope = "col">id</th>
-          <th scope = "col">label</th>
+          <th scope = "col">nom</th>
+          <th scope = "col">prenom</th>
           <th scope = "col">adresse</th>
         </tr>
       </thead>
       <tbody>
           <?php
-          // La liste des centres est dans une variable $results             
+          // La liste des patients est dans une variable $results             
           foreach ($results as $element) {
-           printf("<tr><td>%d</td><td>%s</td><td>%s</td></tr>", $element->getId(), 
-             $element->getLabel(), $element->getAdresse());
+           printf("<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>", $element->getId(), 
+             $element->getNom(), $element->getPrenom(), $element->getAdresse());
           }
           ?>
       </tbody>
