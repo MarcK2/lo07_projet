@@ -2,8 +2,8 @@
 <!-- ----- debut ControllerVin -->
 <?php
 require_once '../model/ModelRecolte.php';
-require_once '../model/ModelVin.php';
-require_once '../model/ModelProducteur.php';
+//require_once '../model/ModelVin.php';
+//require_once '../model/ModelProducteur.php';
 
 class ControllerRecolte {
  
