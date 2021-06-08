@@ -5,6 +5,7 @@ require ('../controller/ControllerVaccin.php');
 require ('../controller/ControllerCentre.php');
 require ('../controller/ControllerCovid.php');
 require ('../controller/ControllerPatient.php');
+require ('../controller/ControllerStock.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -55,9 +56,17 @@ case "patientReadAll" :
      //Passage des arguments au controlleur 
      ControllerPatient::$action($args);
   break;
+
+case "stockReadAll" :
+ case "stockReadDose" :
+ case "stockCreate" :
+ case "stockCreated" :
+     //Passage des arguments au controlleur 
+     ControllerStock::$action($args);
+  break;
   
  case "mesPropositions":
-     ControllerCave::$action();
+     ControllerCovid::$action();
      break;
 
  // Tache par défaut

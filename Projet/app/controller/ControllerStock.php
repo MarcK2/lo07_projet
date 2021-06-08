@@ -5,11 +5,11 @@ require_once '../model/ModelStock.php';
 require_once '../model/ModelVaccin.php';
 require_once '../model/ModelCentre.php';
 
-class ControllerStock {
+class ControllerStock{
  
 
  // --- Liste des centre , caccins et doses
- public static function recolteReadAll() {
+ public static function stockReadAll() {
   $results = ModelStock::getAll();
   // ----- Construction chemin de la vue
   include 'config.php';
@@ -35,7 +35,7 @@ class ControllerStock {
 
 
  // Affiche le formulaire de creation d'une récolte
- public static function recolteCreate($args) {
+ public static function stockCreate($args) {
       if (DEBUG) echo ("ControllerRecolte : recolteCreate:begin</br>");
      $results[0]= ModelVin::getAll();
      $results[1]= ModelProducteur::getAll();
