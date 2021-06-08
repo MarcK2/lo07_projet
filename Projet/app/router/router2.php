@@ -4,7 +4,6 @@
 require ('../controller/ControllerVaccin.php');
 require ('../controller/ControllerCentre.php');
 require ('../controller/ControllerCovid.php');
-require ('../controller/ControllerRecolte.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -46,11 +45,7 @@ case "centreReadAll" :
      //Passage des arguments au controlleur 
      ControllerCentre::$action($args);
   break;
-  case  "recolteReadAll":
-  case  "recolteCreate":
-  case  "recolteCreated":
-      ControllerRecolte::$action($args);
-      break;
+  
  case "mesPropositions":
      ControllerCave::$action();
      break;
