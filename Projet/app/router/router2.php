@@ -6,6 +6,7 @@ require ('../controller/ControllerCentre.php');
 require ('../controller/ControllerCovid.php');
 require ('../controller/ControllerPatient.php');
 require ('../controller/ControllerStock.php');
+require ('../controller/ControllerRendezvous.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -63,6 +64,12 @@ case "stockReadAll" :
  case "stockCreated" :
      //Passage des arguments au controlleur 
      ControllerStock::$action($args);
+  break;
+case "rendezvousReadAll" :
+ case "rendezvousReadId" :
+ case "rendezvousReadOne" :
+     //Passage des arguments au controlleur 
+     ControllerRendezvous::$action($args);
   break;
   
  case "mesPropositions":
