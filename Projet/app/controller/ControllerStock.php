@@ -52,8 +52,10 @@ class ControllerStock{
  // La clé est gérée par le systeme et pas par l'internaute
  public static function stockCreated() {
   // ajouter une validation des informations du formulaire
-       $results = ModelStock::insert(
-      ($_GET['centre_id']), ($_GET['vaccin_id']), ($_GET['quantite']) );
+     $vaccin_id= ModelVaccin::getAllId();
+     $centre_id=$GET["centre_id"];
+     $quantite=$_GET["quantite"];
+       $results = ModelStock::insert($centre_id, $vaccin_id, $quantite );
        
   // ----- Construction chemin de la vue
   include 'config.php';

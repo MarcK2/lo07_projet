@@ -80,15 +80,37 @@ class ModelStock {
  public static function insert($centre_id, $vaccin_id, $quantite) {
   try {
    // Ajout d'un nouveau tuple
-   
-  $query ="insert into stock(centre_id, vaccin_id, quantite) value(:centre_id, :vaccin_id, :quantite)";
+   foreach ($vaccin_id as $id) {
+       $query="select quantite as doses "
+           . " from stock,centre,vaccin WHERE stock.centre_id=centre.id AND"
+           . " stock.vaccin_id=vaccin.id and vaccin.id=: id AND centre.id=: centre_id ";
+       $statement = $database->prepare($query);
+  $results = $statement->execute([
+      'centre_id'=>$centre_id,
+      'vaccin_id'=>$id
+  ]);
+  if($results["doses"]==NULL){
+      $query ="insert into stock(centre_id, vaccin_id, quantite) value(:centre_id, :id, :quantite)";
   $statement = $database->prepare($query);
   $resulat = $statement->execute([
       'centre_id'=>$centre_id,
-      'vaccin_id'=>$vaccin_id,
-      'quantite'=>(int)$quantite
+      'vaccin_id'=>id,
+      'quantite'=>(int)$quantite[$id]
   ]);
-    return $resulat;
+   }
+   else{
+   $quantite[$id]+=$results["doses"];
+     $query2 = "update stock set quantite = :quantite where centre_id =:centre_id and vaccin_id = :id";
+        $statement2 = $database->prepare($query2);
+        $resultat2 = $statement->execute([
+           'centre_id'=>$centre_id,
+          'vaccin_id'=>$id,
+          'quantite'=>(int)$quantite[$id]
+        ]);
+   }
+   }
+  
+    return 1;
     
       } catch (PDOException $e) {
         /*$query = "select centre.label as centre,vaccin.label as vaccin,quantite as "
@@ -114,6 +136,7 @@ class ModelStock {
         ]);
         return 2;*/
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+   return null;
 
   }
  }

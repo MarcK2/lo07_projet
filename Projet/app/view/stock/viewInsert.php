@@ -16,7 +16,8 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       <div class="form-group">
         <input type="hidden" name='action' value='stockCreated'>        
         
-        <label for="id">Selectionner un centre : </label><select type="select" name='centre_id' size='1' value='centre'>
+        <label for="id">Selectionner un centre : </label>
+        <select type="select" name='centre_id' size='1' value='centre'>
             <?php // La liste des centres est dans une variable $results             
                 foreach ($results as $element) {
                 echo "<option>"; 
@@ -32,7 +33,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
                 echo "<label for='id'>Nom du vaccin : </label>";
                 printf("<tr><td> %s </td></tr>", $element->getLabel());
                 echo "   ->   ";
-           echo "<label for='id'> Doses ajoutées :  </label><input type='number' name='quantite' value='1'>";
+           echo "<label for='id'> Doses ajoutées :  </label><input type='number' name='quantite[".$element->getId()."]' value='1'>";
            echo "</br>";
        }
         ?>

@@ -98,6 +98,18 @@ class ControllerRendezvous {
   require ($vue);
  }
  
+ public static function rendezvousFirstInsert() {
+  
+      $centre= explode(" : ", $_GET["centre"]);
+      
+  $results = ModelRendezvous::putFirstRdv($centre[0],$_Get["patient_id"]);
+  
+  // ----- Construction chemin de la vue
+  include 'config.php';
+  $vue = $root . '/app/view/vaccin/viewUpdated.php';
+  require ($vue);
+ }
+ 
  public static function vaccinDeleted() {
   // Suppression d'un vaccin
     $vaccin_id = $_GET['id']; 

@@ -20,8 +20,8 @@ require ($root . '/app/view/fragment/fragmentCaveHeader.html');
     ?>
     <!-- ===================================================== -->
     <?php
-    if ($results!== 2) {
-     echo ("<h3>La nouvelle dose a été ajoutée </h3>");
+    if ($results== 1) {
+     echo ("<h3>Les doses ont été ajoutées </h3>");
      echo("<ul>");
      echo ("<li>centre_id = " . $_GET['centre_id'] . "</li>");
      echo ("<li>vaccin_id = " . $_GET['vaccin_id'] . "</li>");
@@ -29,7 +29,7 @@ require ($root . '/app/view/fragment/fragmentCaveHeader.html');
      echo("</ul>");
     } 
     else {
-     echo ("<h3>La dose a été mise a jour</h3>");
+     echo ("<h3>Il y a un soucis</h3>");
      echo("<ul>");
      echo ("<li>centre_id = " . $_GET['centre_id'] . "</li>");
      echo ("<li>vaccin_id = " . $_GET['vaccin_id'] . "</li>");
