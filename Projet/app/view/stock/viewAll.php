@@ -24,7 +24,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       </thead>
       <tbody>
           <?php
-          // La liste des recoltes est dans une variable $results[1]             
+          // La liste des stocks est dans une variable $results[1]             
        
           foreach($results[1] as $tuple)
             {

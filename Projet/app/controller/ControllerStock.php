@@ -35,36 +35,31 @@ class ControllerStock{
 
 
  // Affiche le formulaire de creation d'une récolte
- public static function stockCreate($args) {
-      if (DEBUG) echo ("ControllerRecolte : recolteCreate:begin</br>");
-     $results[0]= ModelVin::getAll();
-     $results[1]= ModelProducteur::getAll();
-    
-      $target= $args['target'];
-   if (DEBUG) echo ("ControllerRecolte:recolteCreate: target= $target</br>");
+ public static function stockCreate($args) {   
+     $target= $args['target'];
+      
+     $results = ModelCentre::getAll();
+     $resultsvaccin = ModelVaccin::getAll();
+         
   
   // ----- Construction chemin de la vue
   include 'config.php';
-  $vue = $root . '/app/view/recolte/viewInsert.php';
+  $vue = $root . '/app/view/stock/viewInsert.php';
   require ($vue);
  }
 
  // Affiche un formulaire pour récupérer les informations d'un nouveau vin.
  // La clé est gérée par le systeme et pas par l'internaute
- public static function recolteCreated() {
+ public static function stockCreated() {
   // ajouter une validation des informations du formulaire
-     $vin= explode(" : ", $_GET["vin"]);
-     $producteur= explode(" : ", $_GET["producteur"]);
-     
-  
-  $results = ModelRecolte::insert(htmlspecialchars($vin[0]),$producteur[0],$_GET["quantite"]);
- 
+       $results = ModelStock::insert(
+      ($_GET['centre_id']), ($_GET['vaccin_id']), ($_GET['quantite']) );
+       
   // ----- Construction chemin de la vue
   include 'config.php';
-  $vue = $root . '/app/view/recolte/viewInserted.php';
+  $vue = $root . '/app/view/stock/viewInserted.php';
   require ($vue);
  }
- 
  
 }
 ?>
