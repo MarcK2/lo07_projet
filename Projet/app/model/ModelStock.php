@@ -80,44 +80,27 @@ class ModelStock {
  public static function insert($centre_id, $vaccin_id, $quantite) {
   try {
        $database = Model::getInstance();
-   // Ajout d'un nouveau tuple
    foreach ($vaccin_id as $id) {
-       $query="select max(quantite) as doses "
-           . " from stock,centre,vaccin WHERE stock.centre_id=centre.id AND"
-           . " stock.vaccin_id=vaccin.id and vaccin.id='".$id."' AND centre.id='".$centre_id."' ";
-       $statement = $database->prepare($query);
-   $statement->execute();
-   $results =$statement->fetchall();
-  if(($results["0"]==NULL)||($results["0"]==0)){
+       $query="select max(quantite) as doses from stock,centre,vaccin WHERE stock.centre_id=centre.id AND stock.vaccin_id=vaccin.id and vaccin.id='".$id."' AND centre.id='".$centre_id."' ";
+   $statement = $database->prepare($query); $statement->execute();
+   $results =$statement->fetchall(PDO::FETCH_COLUMN); $dose=$results['0'];
+  if($dose==NULL){
       $query ="insert into stock value(:centre_id, :id, :quantite)";
   $statement = $database->prepare($query);
   $statement->execute([
-      'centre_id'=>$centre_id,
-      'vaccin_id'=>$id,
-      'quantite'=>$quantite[$id]
-  ]);
-   }
+      'centre_id'=>$centre_id,'id'=>$id, 'quantite'=>$quantite[$id] 
+  ]); }
    else{
-   $quantite[$id]+=$results["0"];
-     $query2 = "update stock set quantite = :quantite where centre_id =:centre_id and vaccin_id = :id";
-        $statement2 = $database->prepare($query2);
-         $statement2->execute([
-           'centre_id'=>$centre_id,
-          'vaccin_id'=>$id,
-          'quantite'=>$quantite[$id]
-        ]);
-   }
-   }
-  
-    return 1;
-    
+   $quantite[$id]=$quantite[$id]+ $dose;
+     $query2 = "update stock set quantite ='".$quantite[$id]."' where centre_id ='".$centre_id."' and vaccin_id ='".$id."'";
+        $database->exec($query2);
+   }} return 1;
       } catch (PDOException $e) {
-       
-   printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
-   return array($centre_id,$quantite,$vaccin_id);
-
-  }
- }
+   printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage()); $err[0]=$e->getCode();$err[1]=$e->getMessage();
+   return $err;
+  } }
+  
+  
   
   public static function update() {
   

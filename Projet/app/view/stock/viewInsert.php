@@ -31,7 +31,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
        <?php //for ($i = 1; $i <= $_GET[$nombre]; ++$i){
            foreach ($resultsvaccin as $element) {
                 echo "<label for='id'>Nom du vaccin : </label>";
-                printf("<tr><td> %s </td></tr>", $element->getLabel());
+                printf(" %s ", $element->getLabel());
                 echo "   ->   ";
            echo "<label for='id'> Doses ajoutées :  </label><input type='number' name='quantite[".$element->getId()."]' value='1'>";
            echo "</br>";

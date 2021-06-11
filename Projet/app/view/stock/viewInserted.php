@@ -13,7 +13,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
     ?>
     <!-- ===================================================== -->
     <?php
-    if ($results== 1) {
+    if ($results==1) {
      echo ("<h3>Les doses ont été ajoutées </h3>");
      echo("<ul>");
      
