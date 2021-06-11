@@ -53,9 +53,9 @@ class ControllerStock{
  public static function stockCreated() {
   // ajouter une validation des informations du formulaire
      $vaccin_id= ModelVaccin::getAllId();
-     $centre_id=$GET["centre_id"];
+     $centre=explode(" : ",$_GET["centre"]);
      $quantite=$_GET["quantite"];
-       $results = ModelStock::insert($centre_id, $vaccin_id, $quantite );
+       $results = ModelStock::insert($centre[0], $vaccin_id, $quantite );
        
   // ----- Construction chemin de la vue
   include 'config.php';

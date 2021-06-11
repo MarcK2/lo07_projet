@@ -17,11 +17,11 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
         <input type="hidden" name='action' value='stockCreated'>        
         
         <label for="id">Selectionner un centre : </label>
-        <select type="select" name='centre_id' size='1' value='centre'>
+        <select name='centre' size='1' >
             <?php // La liste des centres est dans une variable $results             
                 foreach ($results as $element) {
                 echo "<option>"; 
-                printf("<tr><td>%d</td> : <td>%s</td> : <td>%s</td></tr>", $element->getId(), 
+                printf("%d : %s : %s", $element->getId(), 
                 $element->getLabel(), $element->getAdresse());
                 echo "</option>";
                 }

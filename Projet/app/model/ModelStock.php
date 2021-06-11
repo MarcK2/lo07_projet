@@ -79,33 +79,32 @@ class ModelStock {
 
  public static function insert($centre_id, $vaccin_id, $quantite) {
   try {
+       $database = Model::getInstance();
    // Ajout d'un nouveau tuple
    foreach ($vaccin_id as $id) {
-       $query="select quantite as doses "
+       $query="select max(quantite) as doses "
            . " from stock,centre,vaccin WHERE stock.centre_id=centre.id AND"
-           . " stock.vaccin_id=vaccin.id and vaccin.id=: id AND centre.id=: centre_id ";
+           . " stock.vaccin_id=vaccin.id and vaccin.id='".$id."' AND centre.id='".$centre_id."' ";
        $statement = $database->prepare($query);
-  $results = $statement->execute([
-      'centre_id'=>$centre_id,
-      'vaccin_id'=>$id
-  ]);
-  if($results["doses"]==NULL){
-      $query ="insert into stock(centre_id, vaccin_id, quantite) value(:centre_id, :id, :quantite)";
+   $statement->execute();
+   $results =$statement->fetchall();
+  if(($results["0"]==NULL)||($results["0"]==0)){
+      $query ="insert into stock value(:centre_id, :id, :quantite)";
   $statement = $database->prepare($query);
-  $resulat = $statement->execute([
+  $statement->execute([
       'centre_id'=>$centre_id,
-      'vaccin_id'=>id,
-      'quantite'=>(int)$quantite[$id]
+      'vaccin_id'=>$id,
+      'quantite'=>$quantite[$id]
   ]);
    }
    else{
-   $quantite[$id]+=$results["doses"];
+   $quantite[$id]+=$results["0"];
      $query2 = "update stock set quantite = :quantite where centre_id =:centre_id and vaccin_id = :id";
         $statement2 = $database->prepare($query2);
-        $resultat2 = $statement->execute([
+         $statement2->execute([
            'centre_id'=>$centre_id,
           'vaccin_id'=>$id,
-          'quantite'=>(int)$quantite[$id]
+          'quantite'=>$quantite[$id]
         ]);
    }
    }
@@ -113,30 +112,9 @@ class ModelStock {
     return 1;
     
       } catch (PDOException $e) {
-        /*$query = "select centre.label as centre,vaccin.label as vaccin,quantite as "
-           . "doses from stock,centre,vaccin WHERE stock.centre_id=centre.id AND"
-           . " stock.vaccin_id=vaccin.id ORDER by centre";
-        $statement = $database->prepare($query);
-        $statement->execute();
-        $colcount=$statement->columnCount();
-        $doses=array();
-        for($i=0;$i<$colcount;$i++)
-           {
-             $cols[$i]=$statement->getColumnMeta($i)['name']; 
-           }
-        $datas= $statement->fetchAll(PDO::FETCH_ASSOC);
-        
-        // Update du tuple
-        $query2 = "update stock set quantite = :quantite where centre_id =:centre_id and vaccin_id = :vaccin_id";
-        $statement2 = $database->prepare($query2);
-        $resultat2 = $statement->execute([
-           'centre_id'=>$centre_id,
-          'vaccin_id'=>$vaccin_id,
-          'quantite'=>(int)$quantite
-        ]);
-        return 2;*/
+       
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
-   return null;
+   return array($centre_id,$quantite,$vaccin_id);
 
   }
  }
