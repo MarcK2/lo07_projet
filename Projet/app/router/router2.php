@@ -68,6 +68,7 @@ case "stockReadAll" :
 case "rendezvousReadAll" :
  case "rendezvousReadId" :
  case "rendezvousReadOne" :
+ case "rendezvousFirstInsert":
      //Passage des arguments au controlleur 
      ControllerRendezvous::$action($args);
   break;

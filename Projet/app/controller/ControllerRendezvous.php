@@ -102,11 +102,12 @@ class ControllerRendezvous {
   
       $centre= explode(" : ", $_GET["centre"]);
       
-  $results = ModelRendezvous::putFirstRdv($centre[0],$_Get["patient_id"]);
-  
+  $result = ModelRendezvous::putFirstRdv($centre[0],$_GET["patient_id"]);
+  $bof= ModelStock::update($centre[0],$result["vaccin_id"],$result["doses"]);
+   $results =array($centre[0],$_GET["patient_id"],$result["vaccin.label"],0) ;
   // ----- Construction chemin de la vue
   include 'config.php';
-  $vue = $root . '/app/view/vaccin/viewUpdated.php';
+  $vue = $root . '/app/view/rendezvous/viewRdvfixed.php';
   require ($vue);
  }
  

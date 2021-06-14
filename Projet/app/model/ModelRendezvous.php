@@ -86,7 +86,7 @@ function getCentre_id() {
    return NULL;
   }
  }
-
+  //Obtenir le nbre de doses injectées au patient
  public static function getSituation($patient_id) {
   try {
    $database = Model::getInstance();
@@ -108,6 +108,7 @@ function getCentre_id() {
   }
  }
  
+ //Liste des centre ayant au moins une dose pour une premiere vaccination
  public static function setFirstRdv() {
   try {
    $database = Model::getInstance();
@@ -122,37 +123,33 @@ function getCentre_id() {
    return NULL;
   }
  }
- 
+ // Mettre le 1er rdv
  public static function putFirstRdv($centre_id,$patient_id) {
   try {
    $database = Model::getInstance();
-   $query = "select vaccin.label,vaccin_id,max(quantite)as doses from stock,vaccin,centre WHERE 
-           stock.vaccin_id=vaccin.id and centre_id=centre.id and centre_id= :id";
+   //Selectionner le vaccin qui  a le plus de doses dans le centre choisi
+   $query = "select vaccin.label,vaccin_id,quantite as doses from stock,vaccin,centre WHERE 
+           stock.vaccin_id=vaccin.id and centre_id=centre.id and quantite=(select max(quantite) from stock) and centre_id=:id ";
    $statement = $database->prepare($query);
-   $statement->execute([
-     'id' => $centre_id
-   ]);
+   $statement->execute(['id' => $centre_id ]);
    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
    
+   //Inserer le patient dans la liste des rdv
   $query2 = "insert into rendezvous value (:centre_id, :patient_id, :injection, :vaccin_id)";
    $statement2 = $database->prepare($query2);
    $statement2->execute([
      'centre_id' => $centre_id,
      'patient_id' => $patient_id,
      'injection' => 1,
-     'vaccin_id' => $this->vaccin_id
-   ]);
+     'vaccin_id' => $results["vaccin_id"]
+           ]);
    $results["doses"]--;
-    $query3 = "update stock set quantite='".$results["doses"]."' where "
-            . "vaccin_id='".$results["vaccin_id"]."' and centre_id='".$centre_id."'";
-      $database->exec($query3);
    
    return $results;
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
    return NULL;
-  }
- }
+  }}
 
  public static function insert($label,$doses) {
   try {

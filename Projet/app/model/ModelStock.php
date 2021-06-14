@@ -38,7 +38,7 @@ class ModelStock {
    $database = Model::getInstance();
    $query = "select centre.label as centre,vaccin.label as vaccin,quantite as "
            . "doses from stock,centre,vaccin WHERE stock.centre_id=centre.id AND"
-           . " stock.vaccin_id=vaccin.id ORDER by centre";
+           . " stock.vaccin_id=vaccin.id ORDER by centre ";
    $statement = $database->prepare($query);
    $statement->execute();
    $colcount=$statement->columnCount();
@@ -102,8 +102,16 @@ class ModelStock {
   
   
   
-  public static function update() {
-  
+  public static function update($centre_id,$vaccin_id,$quantite) {
+   try {
+        $database = Model::getInstance();
+     $query = "update stock set quantite ='".$quantite."' where centre_id ='".$centre_id."' and vaccin_id ='".$vaccin_id."'";
+        $database->exec($query);
+      return 1;
+     } catch (Exception $ex) {
+       printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return null;
+     }
  }
 
 

@@ -12,14 +12,16 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
       ?>
       
-      <h2><b>Vue Centre viewId</b></h2> 
-    
+      <h2><b>Vue Centre ChooseCentre</b></h2> 
+     
       <?php if($results[2]==0) {
+          echo(" <p>Ce patient n'a rien reçu aucune injection.</p>");
+           
    echo('<form role="form" method="get" action="router2.php">
       <div class="form-group">
         <input type="hidden" name="action" value="rendezvousFirstInsert">
-         <input type="hidden" name="patient_id" value='.$resultat[1].'>
-        <label for="id">id : </label> 
+         <input type="hidden" name="patient_id" value='.$results[1].'>
+        <label for="id">Veuillez choisir un centre: </label> 
         <select class="form-control" id="centre" name="centre" style="width: 400px">');
          foreach($results[0] as $element){
                 echo("<option>");
@@ -35,6 +37,9 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       <p/>
       <button class="btn btn-primary" type="submit">Submit form</button>
       </form> ');}
+      elseif($results[2]==1){
+          
+      }
       ?>
   </div>
   <?php include $root . '/app/view/fragment/fragmentCovidFooter.html'; ?>
