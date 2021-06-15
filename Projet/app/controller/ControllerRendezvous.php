@@ -36,69 +36,40 @@ class ControllerRendezvous {
  public static function rendezvousReadOne() {
   $patient =explode(' : ',$_GET['patient']);
   $situation=ModelRendezvous::getSituation($patient[0]);
-  
+  //patient[0]=patient_id
   // ----- Construction chemin de la vue
   include 'config.php';
-  if($situation[0]==0){
+  if($situation[0][0]==0){
      $results[0]= ModelRendezvous::setFirstRdv(); 
      $results[1]=$patient[0];
-     $results[2]=$situation[0];
+     $results[2]=$situation[0][0];
   }
-  elseif($situation[0]==1){
-     
-      $results[1]=$patient[0];
-      $results[2]=$situation[0];
+  elseif($situation[0][0]>0){ // situation[0][0]=nombre d'injection ; situation[0][1]=vaccin_id
+      $query="select nom,prenom,centre.label as centre,vaccin.label as vaccin,injection from centre,
+              vaccin,rendezvous,patient WHERE rendezvous.centre_id=centre.id AND
+              rendezvous.vaccin_id=vaccin.id and patient.id=rendezvous.patient_id 
+              and patient.id=".$patient[0]." ";
+          $tab= ModelRendezvous::getMany($query);
+     $det= ModelRendezvous::needSup($situation[0][0], $situation[0][1]);
+      if($det==1){
+          $results[0]= ModelRendezvous::setOtherRdv($situation[0][1]);
+          $results[1]=$patient[0];
+          $results[3]=$situation[0][1];
+          $results[4]=$situation[0][0];
+          
+      }
+      elseif($det==-1){// Afficher la situation vaccinale du patient
+         
+      }
+      $results[2]=$det;
   }
-  else{
-     
-       
-         $results[1]=$patient[0];
-           $results[2]=$situation;
-  }
+  
   $vue = $root . '/app/view/rendezvous/viewChooseCentre.php';
   require ($vue);
  }
 
- // Affiche le formulaire de creation d'un vaccin
- public static function vaccinCreate() {
-  // ----- Construction chemin de la vue
-  include 'config.php';
-  $vue = $root . '/app/view/vaccin/viewInsert.php';
-  require ($vue);
- }
-
- // Affiche un formulaire pour récupérer les informations d'un nouveau vaccin.
- // La clé est gérée par le systeme et pas par l'internaute
- public static function vaccinCreated() {
-  // ajouter une validation des informations du formulaire
-  $results = ModelVaccin::insert(
-      htmlspecialchars($_GET['label']), htmlspecialchars($_GET['doses']) );
-  // ----- Construction chemin de la vue
-  include 'config.php';
-  $vue = $root . '/app/view/vaccin/viewInserted.php';
-  require ($vue);
- }
  
- public static function vaccinUpdate() {
-  // Update d'un vaccin 
-  $results =ModelVaccin::getAll();
-  // ----- Construction chemin de la vue
-  include 'config.php';
-  $vue = $root . '/app/view/vaccin/viewUpdate.php';
-  require ($vue);
- }
  
-  public static function vaccinUpdated() {
-  // Update d'un vaccin
-      $vaccin= explode(" : ", $_GET["vaccin"]);
-      
-  $results = ModelVaccin::update($vaccin[0],$_GET["doses"]);
-  
-  // ----- Construction chemin de la vue
-  include 'config.php';
-  $vue = $root . '/app/view/vaccin/viewUpdated.php';
-  require ($vue);
- }
  
  public static function rendezvousFirstInsert() {
   
@@ -117,6 +88,31 @@ class ControllerRendezvous {
   $vue = $root . '/app/view/rendezvous/viewRdvfixed.php';
   require ($vue);
  }
+ 
+ 
+ public static function rendezvousInsert() {
+  
+    $centre= explode(" : ", $_GET["centre"]);
+    $centre_id=$centre[0];
+    $patient_id=$_GET["patient_id"];
+    $vaccin_id=$_GET["vaccin_id"];
+    $injection=$_GET["injection"];
+    $injection++;
+    $confirm= ModelRendezvous::putRdv($centre_id,$patient_id,$vaccin_id,$injection);
+    $res= ModelStock::getQuantite($vaccin_id, $centre_id);
+    $bof= ModelStock::update($centre_id,$vaccin_id,$res["quantite"]);
+    $label= ModelVaccin::getOne($vaccin_id);
+    $lab=$label[0];
+     $label1= ModelCentre::getOne($centre_id);
+    $lab1=$label1[0];
+    $results =array($centre_id,$_GET["patient_id"],$lab[1],1,$lab1[1],$injection) ;
+  // ----- Construction chemin de la vue
+  include 'config.php';
+  $vue = $root . '/app/view/rendezvous/viewRdvfixed.php';
+  require ($vue);
+ }
+ 
+ 
  
  public static function vaccinDeleted() {
   // Suppression d'un vaccin

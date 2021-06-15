@@ -60,16 +60,23 @@ function getCentre_id() {
   }
  }
 
- public static function getMany($query) {
+public static function getMany($query) {
   try {
    $database = Model::getInstance();
    $statement = $database->prepare($query);
    $statement->execute();
-   $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelVaccin");
-   return $results;
+   $colcount=$statement->columnCount();
+   $cols=array();
+   $datas=array();
+   for($i=0;$i<$colcount;$i++)
+      {
+        $cols[$i]=$statement->getColumnMeta($i)['name']; 
+      }
+   $datas= $statement->fetchAll(PDO::FETCH_ASSOC);
+   return array($cols,$datas);
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
-   return NULL;
+   return array($e->getCode(), $e->getMessage(),probleme);
   }
  }
 
@@ -95,10 +102,10 @@ function getCentre_id() {
    $statement->execute([
      'id' => $patient_id
    ]);
-   $results= $statement->fetchall(pdo::FETCH_COLUMN);
+   $results= $statement->fetchall(pdo::FETCH_NUM);
    
-  if($results==null){
-      $results=0;
+  if($results[0]==null){
+      $results[0]=0;
   } 
   return $results;
   
@@ -145,7 +152,69 @@ function getCentre_id() {
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
    return NULL;
+  }
+  }
+  
+    // Verifier si le patient a besoin d'une autre dose de vaccin
+   public static function needSup($injection,$vaccin_id){
+        
+        try {
+            $database = Model::getInstance();
+        $query = "select doses from vaccin where id='".$vaccin_id. "'";
+        $statement = $database->query($query);
+        $tuple = $statement->fetch();
+        $doses = $tuple['0'];
+        if($doses==$injection){
+            return -1;
+        }
+        else{
+            return 1;
+        }
+            
+        } catch (PDOException $e) {
+            printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+            return NULL;
+        }
+   }
+   
+   public static function setOtherRdv($vaccin_id) {
+  try {
+   $database = Model::getInstance();
+   $query = "select centre.label,centre_id  from stock,centre ,vaccin
+        WHERE stock.centre_id=centre.id and quantite >0 and stock.centre_id=vaccin.id
+        and vaccin_id=:vaccin_id GROUP by label ORDER by centre_id";
+   $statement = $database->prepare($query);
+   $statement->execute(['vaccin_id'=>$vaccin_id]);
+   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+   return $results;
+  } catch (PDOException $e) {
+   printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+   return NULL;
+  }
+ }
+ 
+  // Mettre le 1er rdv
+ public static function putRdv($centre_id,$patient_id,$vaccin_id,$injection) {
+  try {
+   $database = Model::getInstance();
+   
+   //Inserer le patient dans la liste des rdv
+  $query2 = "insert into rendezvous value (:centre_id, :patient_id, :injection, :vaccin_id)";
+   $statement2 = $database->prepare($query2);
+   $statement2->execute([
+     'centre_id' => $centre_id,
+     'patient_id' => $patient_id,
+     'injection' => $injection,
+     'vaccin_id' => $vaccin_id
+           ]);
+   
+   return 1;
+  } catch (PDOException $e) {
+   printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+   return NULL;
   }}
+   
+   
 
  public static function insert($label,$doses) {
   try {

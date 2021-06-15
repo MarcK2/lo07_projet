@@ -69,6 +69,7 @@ case "rendezvousReadAll" :
  case "rendezvousReadId" :
  case "rendezvousReadOne" :
  case "rendezvousFirstInsert":
+ case "rendezvousInsert":
      //Passage des arguments au controlleur 
      ControllerRendezvous::$action($args);
   break;

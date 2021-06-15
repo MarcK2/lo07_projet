@@ -81,19 +81,19 @@ class ModelStock {
   try {
        $database = Model::getInstance();
    foreach ($vaccin_id as $id) {
-       $query="select max(quantite) as doses from stock,centre,vaccin WHERE stock.centre_id=centre.id AND stock.vaccin_id=vaccin.id and vaccin.id='".$id."' AND centre.id='".$centre_id."' ";
-   $statement = $database->prepare($query); $statement->execute();
-   $results =$statement->fetchall(PDO::FETCH_COLUMN); $dose=$results['0'];
-  if($dose==NULL){
-      $query ="insert into stock value(:centre_id, :id, :quantite)";
-  $statement = $database->prepare($query);
-  $statement->execute([
-      'centre_id'=>$centre_id,'id'=>$id, 'quantite'=>$quantite[$id] 
-  ]); }
-   else{
-   $quantite[$id]=$quantite[$id]+ $dose;
-     $query2 = "update stock set quantite ='".$quantite[$id]."' where centre_id ='".$centre_id."' and vaccin_id ='".$id."'";
-        $database->exec($query2);
+        $query="select max(quantite) as doses from stock,centre,vaccin WHERE stock.centre_id=centre.id AND stock.vaccin_id=vaccin.id and vaccin.id='".$id."' AND centre.id='".$centre_id."' ";
+        $statement = $database->prepare($query); $statement->execute();
+        $results =$statement->fetchall(PDO::FETCH_COLUMN); $dose=$results['0'];
+       if($dose==NULL){
+            $query ="insert into stock value(:centre_id, :id, :quantite)";
+            $statement = $database->prepare($query);
+            $statement->execute([
+                'centre_id'=>$centre_id,'id'=>$id, 'quantite'=>$quantite[$id] 
+            ]); }
+        else{
+            $quantite[$id]=$quantite[$id]+ $dose;
+            $query2 = "update stock set quantite ='".$quantite[$id]."' where centre_id ='".$centre_id."' and vaccin_id ='".$id."'";
+            $database->exec($query2);
    }} return 1;
       } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage()); $err[0]=$e->getCode();$err[1]=$e->getMessage();
@@ -135,6 +135,21 @@ class ModelStock {
         printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
        return null;
    }
+ }
+ 
+ public static function getQuantite($vaccin_id,$centre_id) {
+  try {
+   $database = Model::getInstance();
+   $query="select quantite from stock,centre,vaccin WHERE stock.centre_id=centre.id"
+           . " AND stock.vaccin_id=vaccin.id and vaccin.id=".$vaccin_id." and centre.id=".$centre_id." ";
+   $statement = $database->prepare($query);
+   $statement->execute();
+   $datas= $statement->fetchAll(PDO::FETCH_ASSOC);
+   return $datas;
+  } catch (PDOException $e) {
+   printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+   return NULL;
+  }
  }
 
 

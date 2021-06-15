@@ -15,7 +15,15 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       <h2><b>Vue Rendezvous viewRendezvousFixed</b></h2> 
      
       <?php if($results[3]==0) {
-   echo('<p>Le patient'.$results[1].' aura bien sa première dose de  '.$results[2].' dans le centre '.$results[4].' </p>');}
+            echo('<p>Le patient'.$results[1].' aura sa première dose de  '.$results[2].''
+                    . ' dans le centre '.$results[4].' </p>');
+   
+      }
+      elseif($results[3]==1){
+           echo('<p>Le patient'.$results[1].' aura  sa '.$results[5].'ème dose de  '.$results[2].''
+                   . ' dans le centre '.$results[4].' </p>');
+      }
+      
       ?>
   </div>
   <?php include $root . '/app/view/fragment/fragmentCovidFooter.html'; ?>
