@@ -93,7 +93,7 @@ class ModelCentre {
    $statement->execute([
      'id' => $id
    ]);
-   $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelCentre");
+   $results = $statement->fetchAll(PDO::FETCH_NUM);
    return $results;
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());

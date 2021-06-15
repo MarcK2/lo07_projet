@@ -105,13 +105,36 @@ class ModelStock {
   public static function update($centre_id,$vaccin_id,$quantite) {
    try {
         $database = Model::getInstance();
+        $quantite--;
      $query = "update stock set quantite ='".$quantite."' where centre_id ='".$centre_id."' and vaccin_id ='".$vaccin_id."'";
         $database->exec($query);
       return 1;
-     } catch (Exception $ex) {
+     } catch (Exception $e) {
        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
       return null;
      }
+ }
+ 
+ public static function getIdmax($centre_id) {
+   try {
+         $database = Model::getInstance();
+   //Selectionner le vaccin qui  a le plus de doses dans le centre choisi
+   $query = "select max(quantite) as doses from stock WHERE centre_id=:id ";
+   $statement = $database->prepare($query);
+   $statement->execute(['id' => $centre_id ]);
+   $results = $statement->fetchAll(PDO::FETCH_COLUMN);
+   $doses=$results['0'];
+   $query2 = "select vaccin_id from stock WHERE quantite='". $doses."' and centre_id=:id ";
+   $statement2 = $database->prepare($query2);
+   $statement2->execute(['id' => $centre_id ]);
+   $results2 = $statement2->fetchAll(PDO::FETCH_COLUMN);
+   
+    return array($results2['0'],$doses);
+    
+   } catch (Exception $e) {
+        printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+       return null;
+   }
  }
 
 

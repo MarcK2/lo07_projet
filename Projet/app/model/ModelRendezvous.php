@@ -123,16 +123,13 @@ function getCentre_id() {
    return NULL;
   }
  }
+ 
+ 
+ 
  // Mettre le 1er rdv
- public static function putFirstRdv($centre_id,$patient_id) {
+ public static function putFirstRdv($centre_id,$patient_id,$vaccin_id) {
   try {
    $database = Model::getInstance();
-   //Selectionner le vaccin qui  a le plus de doses dans le centre choisi
-   $query = "select vaccin.label,vaccin_id,quantite as doses from stock,vaccin,centre WHERE 
-           stock.vaccin_id=vaccin.id and centre_id=centre.id and quantite=(select max(quantite) from stock) and centre_id=:id ";
-   $statement = $database->prepare($query);
-   $statement->execute(['id' => $centre_id ]);
-   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
    
    //Inserer le patient dans la liste des rdv
   $query2 = "insert into rendezvous value (:centre_id, :patient_id, :injection, :vaccin_id)";
@@ -141,11 +138,10 @@ function getCentre_id() {
      'centre_id' => $centre_id,
      'patient_id' => $patient_id,
      'injection' => 1,
-     'vaccin_id' => $results["vaccin_id"]
+     'vaccin_id' => $vaccin_id
            ]);
-   $results["doses"]--;
    
-   return $results;
+   return 1;
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
    return NULL;

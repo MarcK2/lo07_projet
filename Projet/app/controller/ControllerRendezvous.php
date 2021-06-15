@@ -3,6 +3,8 @@
 <?php
 require_once '../model/ModelPatient.php';
 require_once '../model/ModelRendezvous.php';
+require_once '../model/ModelStock.php';
+require_once '../model/ModelVaccin.php';
 
 class ControllerRendezvous {
  
@@ -100,11 +102,16 @@ class ControllerRendezvous {
  
  public static function rendezvousFirstInsert() {
   
-      $centre= explode(" : ", $_GET["centre"]);
-      
-  $result = ModelRendezvous::putFirstRdv($centre[0],$_GET["patient_id"]);
-  $bof= ModelStock::update($centre[0],$result["vaccin_id"],$result["doses"]);
-   $results =array($centre[0],$_GET["patient_id"],$result["vaccin.label"],0) ;
+    $centre= explode(" : ", $_GET["centre"]);
+    $centre_id=$centre[0];
+    $vaccin= ModelStock::getIdmax($centre_id); // vaccin[0]=vaccin_id , vaccin[1]= doses
+    $confirm= ModelRendezvous::putFirstRdv($centre_id,$_GET["patient_id"],$vaccin[0]);
+    $bof= ModelStock::update($centre_id,$vaccin[0],$vaccin[1]);
+    $label= ModelVaccin::getOne($vaccin[0]);
+    $lab=$label[0];
+     $label1= ModelCentre::getOne($centre_id);
+    $lab1=$label1[0];
+    $results =array($centre_id,$_GET["patient_id"],$lab[1],0,$lab1[1]) ;
   // ----- Construction chemin de la vue
   include 'config.php';
   $vue = $root . '/app/view/rendezvous/viewRdvfixed.php';
