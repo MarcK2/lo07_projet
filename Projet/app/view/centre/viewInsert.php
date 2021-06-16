@@ -15,7 +15,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
     <form role="form" method='get' action='router2.php'>
       <div class="form-group">
         <input type="hidden" name='action' value='centreCreated'>        
-        <label for="id">Label   : </label><input type="text" name='label' size='30' value='Super Centre'> &ensp;                      
+        <label for="id">Nom du centre  : </label><input type="text" name='label' size='30' value='Super Centre'></br> &ensp;                      
         <label for="id">Adresse : </label><input type="text" name='adresse' size='30' value='13 Rue de La Lune,34892 Ciel'>               
       </div>
       <p/>

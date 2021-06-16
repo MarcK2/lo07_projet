@@ -17,9 +17,9 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
     <table class = "table table-striped table-bordered">
       <thead>
         <tr>
-          <th scope = "col">id</th>
-          <th scope = "col">label</th>
-          <th scope = "col">adresse</th>
+          <th scope = "col">Id</th>
+          <th scope = "col">Centre de Vaccination</th>
+          <th scope = "col">Adresse</th>
         </tr>
       </thead>
       <tbody>

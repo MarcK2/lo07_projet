@@ -59,7 +59,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
                   echo("</tr>\n"); 
                }
         echo('</tbody></table>');
-            echo(" <p>Veuillez choisir un centre pour votre deuxième dose.</p>");
+            echo(" <p>Veuillez choisir un centre pour votre prochaine dose.</p>");
            echo('<form role="form" method="get" action="router2.php">
       <div class="form-group">
         <input type="hidden" name="action" value="rendezvousInsert">
