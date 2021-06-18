@@ -11,7 +11,9 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       include $root . '/app/view/fragment/fragmentCovidMenu.html';
       include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
     ?> 
+      
       <h2><b>Vue app/view/stock/viewInsert</b></h2> 
+      
     <form role="form" method='get' action='router2.php'>
       <div class="form-group">
         <input type="hidden" name='action' value='stockCreated'>        

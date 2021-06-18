@@ -144,6 +144,12 @@ include 'config.php';
   require ($vue);
  }
  
+ public static function documentation4() {
+  
+  include 'config.php';
+  $vue = $root . '/app/view/documentation/viewAvis.php';
+  require ($vue);
+ }
  
 }
 ?>

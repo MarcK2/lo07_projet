@@ -80,6 +80,8 @@ case "rendezvousReadAll" :
  case "totalVaccin" :
  case "documentation1":
  case "documentation2":
+ case "documentation3":
+ case "documentation4":
      
      //Passage des arguments au controlleur 
      ControllerInnovation::$action($args);
