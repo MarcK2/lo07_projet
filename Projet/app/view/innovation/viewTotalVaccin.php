@@ -16,7 +16,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
     echo("<div>");
      echo ("<h3>Voici le nombre total de dose pour ce vaccin disponible en France :</h3></br>");
      echo ("<h4>Vaccin =>  " . $vaccin_id[1] . "</h4>");
-     echo ("<h4>Doses totales =>  "   .$resultat. "</h4>");
+     echo ("<h4>Quantite totale de doses =>  "   .$resultat. "</h4>");
     echo("</div>");
     
     include $root . '/app/view/fragment/fragmentCovidFooter.html';

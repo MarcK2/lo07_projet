@@ -11,63 +11,22 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       include $root . '/app/view/fragment/fragmentCovidMenu.html';
       include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
       ?>
-      <h3><b>Centre</b> : <?php echo $label ;?></h3>
-      <?php echo("<h4><b>Adresse</b> :<a href='http://maps.google.com/maps?f=d&daddr=".$adresse."'>".$adresse."</a></h4>")?>
-      <h4><b>Nombre total de doses</b> : <?php echo $total['total']?></h4>
-      <h4><b>Liste des vaccins</b></h4>
-    <table class = "table table-striped table-bordered">
-      <thead>
-        <tr>
-           <?php
-           foreach ($results[0] as $element){
-           echo('<th scope = "col">'.$element.'</th>');
-           }
-           ?>        
-        </tr>
-      </thead>
-      <tbody>
-          <?php
-          // La liste des stocks est dans une variable $results[1]             
-       
-          foreach($results[1] as $tuple)
-            {
-                echo("<tr>\n"); 
-               foreach ($tuple as $keys=>$val){
-                    printf("<td>%s</td>\n",$val);
-                }
-                echo("</tr>\n"); 
-             }
-          ?>
-      </tbody>
-    </table> <br><!-- comment -->
+      <h3><b>Documentation Innovation 2 : </h3>
+      <div class="panel panel-primary" id="2">
+        <div class="panel-heading">Affichage du nombre total de dose (quantite) d'un vaccin disponible en France</div>
+        <div class="panel-body ">       
+        <p> A aucun moment dans le site on peut voir combien de dose total a un vaccin.
+        C'est une information qui peut etre utile a l'utilisateur pour ensuite "recommander" des doses de vaccin a repartir
+        entre les centres (Attribution de vaccin pour un centre), ça permet de se rendre compte facilement qu'il y a 
+        un vaccin en manque de dose dans sans doute tout les centres. On peut se donner une limite, par exemple on doit avoir au minimum 10 doses de chaques vaccin,
+        et si ce n'est pas le cas on fait une "commande" du nombre de dose manquante et on les attribut aux centres qui sont en manque de ce vaccin (on pourras verifier
+        grace a la gestion des stocks). L'information pourrais etre obtenu avec "liste des centres avec le nombre de doses de chaques vaccin", mais il faudrai compter a la main
+        
+        <p/>
+        <p> Il suffit donc de choisir le vaccin et ca nous affiche le nom du vaccin choisi et le nombre de dose total de ce vaccin.<p/>
+        </div>
+    </div>
     
-    <h4><b>Liste des patients</b></h4>
-    <table class = "table table-striped table-bordered">
-      <thead>
-        <tr>
-           <?php
-           foreach ($results2[0] as $element){
-           echo('<th scope = "col">'.$element.'</th>');
-           }
-           ?>        
-        </tr>
-      </thead>
-      <tbody>
-          <?php
-          // La liste des stocks est dans une variable $results[1]             
-       
-          foreach($results2[1] as $tuple)
-            {
-                echo("<tr>\n"); 
-               foreach ($tuple as $keys=>$val){
-                    printf("<td>%s</td>\n",$val);
-                }
-                echo("</tr>\n"); 
-             }
-          ?>
-      </tbody>
-    </table> 
-  </div>
   <?php include $root . '/app/view/fragment/fragmentCovidFooter.html'; ?>
 
   <!-- ----- fin viewAll -->
