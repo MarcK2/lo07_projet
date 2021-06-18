@@ -13,15 +13,7 @@ class ControllerCovid {
   require ($vue);
  }
  
- // --- Page mes propositions
- public static function mesInnovations(){
-     // ----- Construction chemin de la vue
-  include 'config.php';
-  $vue = $root . '/public/documentation/mesInnovations.php';
-  require ($vue);
-     
- }
-
+ 
  
 }
 ?>

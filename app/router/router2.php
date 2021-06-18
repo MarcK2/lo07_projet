@@ -74,17 +74,17 @@ case "rendezvousReadAll" :
      //Passage des arguments au controlleur 
      ControllerRendezvous::$action($args);
   break;
-case "chooseCentre" :
+ case "chooseCentre" :
  case "ReadOneCentre" :
  case "chooseVaccin" :
  case "totalVaccin" :
+ case "documentation1":
+ case "documentation2":
+     
      //Passage des arguments au controlleur 
      ControllerInnovation::$action($args);
   break;
   
- case "mesPropositions":
-     ControllerCovid::$action();
-     break;
 
  // Tache par défaut
  default:

@@ -44,6 +44,7 @@ require_once '../model/ModelCentre.php';
  }
  
  
+ 
  // Affiche le formulaire de choix d'un vaccin
 public static function chooseVaccin() {
   $results = ModelVaccin::getAll();
@@ -66,6 +67,29 @@ public static function chooseVaccin() {
   $vue = $root . '/app/view/innovation/viewTotalVaccin.php';
   require ($vue);
  }
+ 
+ 
+ public static function documentation1() {
+  
+  include 'config.php';
+  $vue = $root . '/app/view/documentation/viewInnovation1.php';
+  require ($vue);
+ }
+ 
+ public static function documentation2() {
+  
+  include 'config.php';
+  $vue = $root . '/app/view/documentation/viewInnovation2.php';
+  require ($vue);
+ }
+ 
+ public static function documentation3() {
+  
+  include 'config.php';
+  $vue = $root . '/app/view/documentation/viewInnovation3.php';
+  require ($vue);
+ }
+ 
  
 }
 ?>
