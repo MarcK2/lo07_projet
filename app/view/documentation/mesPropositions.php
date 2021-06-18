@@ -2,14 +2,14 @@
 <!-- ----- mes proposition-->
  
 <?php 
-require ($root . '/app/view/fragment/fragmentCovidHeader.html');
+require ($root . '/app/view/fragment/fragmentCaveHeader.html');
 ?>
 
 <body>
   <div class="container">
     <?php
-      include $root . '/app/view/fragment/fragmentCovidMenu.html';
-      include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
+      include $root . '/app/view/fragment/fragmentCaveMenu.html';
+      include $root . '/app/view/fragment/fragmentCaveJumbotron.html';
     ?> 
     <div class="panel panel-primary" id="2">
         <div class="panel-heading">Innovqtion 2 : </div>
