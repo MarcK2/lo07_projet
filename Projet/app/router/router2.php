@@ -7,6 +7,7 @@ require ('../controller/ControllerCovid.php');
 require ('../controller/ControllerPatient.php');
 require ('../controller/ControllerStock.php');
 require ('../controller/ControllerRendezvous.php');
+require ('../controller/ControllerInnovation.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -72,6 +73,11 @@ case "rendezvousReadAll" :
  case "rendezvousInsert":
      //Passage des arguments au controlleur 
      ControllerRendezvous::$action($args);
+  break;
+ case "chooseCentre" :
+ case "ReadOneCentre" :
+     //Passage des arguments au controlleur 
+     ControllerInnovation::$action($args);
   break;
   
  case "mesPropositions":
