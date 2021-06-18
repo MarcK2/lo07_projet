@@ -74,9 +74,10 @@ case "rendezvousReadAll" :
      //Passage des arguments au controlleur 
      ControllerRendezvous::$action($args);
   break;
- case "chooseCentre" :
+case "chooseCentre" :
  case "ReadOneCentre" :
- case"documentation1" :
+ case "chooseVaccin" :
+ case "totalVaccin" :
      //Passage des arguments au controlleur 
      ControllerInnovation::$action($args);
   break;

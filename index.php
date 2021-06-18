@@ -6,5 +6,6 @@ header('Location: app/router/router2.php?action=truc');
 //2eme test pour voir
 
 
-// Comment 18/06/2021
+//test 18/06/2021
 ?>
+
