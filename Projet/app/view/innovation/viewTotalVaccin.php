@@ -13,12 +13,10 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       <h2><b>Vue app/view/innovation/viewTotalVaccin</b></h2> 
     <!-- ===================================================== -->
     <?php
-     echo ("<h3>Voici le nombre total de dose pour ce vaccin disponible en France :</h3>");
-     echo("<ul>");
-     echo ("<li>Vaccin =>  " . $vaccin_id[1] . "</li>");
-     echo ("<li>Doses totales =>  " .$resultat. "</li>");
-     echo("</ul>");
-
+    echo("<div>");
+     echo ("<h3>Voici le nombre total de dose pour ce vaccin disponible en France :</h3></br>");
+     echo ("<h4>Vaccin =>  " . $vaccin_id[1] . "</h4>");
+     echo ("<h4>Doses totales =>  "   .$resultat. "</h4>");
     echo("</div>");
     
     include $root . '/app/view/fragment/fragmentCovidFooter.html';
