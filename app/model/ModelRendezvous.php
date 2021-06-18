@@ -254,16 +254,15 @@ public static function getMany($query) {
      }
  }
  
- public static function delete($id) {
+ public static function delete($patient_id,$vaccin_id,$centre_id,$injection) {
    try {
    $database = Model::getInstance();
-   $query = "Delete from vaccin where id = :id";
+   $query = "Delete from rendezvous where patient_id='".$patient_id."' and  centre_id='".$centre_id."' 
+       and vaccin_id='".$patient_id."', injection='".$injection."'";
    $statement = $database->prepare($query);
-   $statement->execute([
-     'id' => $id
-   ]);
+   $statement->execute();
    
-   return $id;
+   return $patient_id;
   } catch (PDOException $e) {
    printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
    return NULL;

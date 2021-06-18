@@ -9,16 +9,7 @@ require_once '../model/ModelVaccin.php';
 class ControllerRendezvous {
  
 
- // --- Liste des vaccins
- public static function vaccinReadAll() {
-  $results = ModelVaccin::getAll();
-  // ----- Construction chemin de la vue
-  include 'config.php';
-  $vue = $root . '/app/view/vaccin/viewAll.php';
-  if (DEBUG)
-   echo ("ControllerVin : vinReadAll : vue = $vue");
-  require ($vue);
- }
+
 
  // Affiche un formulaire pour sélectionner un id qui existe
  public static function rendezvousReadId() {
@@ -113,17 +104,6 @@ class ControllerRendezvous {
  }
  
  
- 
- public static function vaccinDeleted() {
-  // Suppression d'un vaccin
-    $vaccin_id = $_GET['id']; 
-  $results = ModelVin::delete($vaccin_id);
-  
-  // ----- Construction chemin de la vue
-  include 'config.php';
-  $vue = $root . '/app/view/vaccin/viewDeleted.php';
-  require ($vue);
- }
  
 }
 ?>
