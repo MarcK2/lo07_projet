@@ -78,6 +78,8 @@ case "rendezvousReadAll" :
  case "ReadOneCentre" :
  case "chooseVaccin" :
  case "totalVaccin" :
+ case "centreUpdate":
+     case "centreUpdated":
  case "documentation1":
  case "documentation2":
  case "documentation3":

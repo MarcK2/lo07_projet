@@ -127,6 +127,18 @@ class ModelCentre {
   }
  }
 
+  public static function update($id,$adresse) {
+    try {
+        $database = Model::getInstance();
+      $query = "update centre set adresse='".$adresse."' where id='".$id."'";
+      $database->exec($query);
+      return $id;
+     } catch (Exception $ex) {
+       printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return null;
+     }
+ }
+
  
  
 
