@@ -151,7 +151,25 @@ class ModelStock {
    return NULL;
   }
  }
+ 
+ 
 
+ // fonction pour innovation : recuperer le nombre de doses totales
+public static function getDose($vaccin_id) {
+  try {
+   $database = Model::getInstance();
+   $query="select sum(quantite) from stock,centre,vaccin WHERE "
+   . "stock.centre_id=centre.id AND stock.vaccin_id=vaccin.id and vaccin.id=".$vaccin_id.""; 
+   $statement = $database->query($query);
+   $resultat = $statement->fetch();
+   $dose = $resultat['0'];
+
+   return $dose;
+  } catch (PDOException $e) {
+   printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+   return NULL;
+  }
+ }
 
 
 }

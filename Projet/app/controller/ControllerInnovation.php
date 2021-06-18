@@ -44,6 +44,28 @@ require_once '../model/ModelCentre.php';
  }
  
  
+ // Affiche le formulaire de choix d'un vaccin
+public static function chooseVaccin() {
+  $results = ModelVaccin::getAll();
+  // ----- Construction chemin de la vue
+  include 'config.php';
+  $vue = $root . '/app/view/innovation/viewChooseVaccin.php';
+  if (DEBUG)
+   echo ("ControllerInnovation : chooseVaccin : vue = $vue");
+  require ($vue);
+ }
+ 
+ //Affiche le formulaire pour recuperer les informations du vaccin (nombre de doses totales)
+ // La clé est gérée par le systeme et pas par l'internaute
+ public static function totalVaccin() {
+  // ajouter une validation des informations du formulaire
+  $vaccin_id=explode(" : ",$_GET['vaccin']);
+  $resultat = ModelStock::getDose($vaccin_id[0]);
+  // ----- Construction chemin de la vue
+  include 'config.php';
+  $vue = $root . '/app/view/innovation/viewTotalVaccin.php';
+  require ($vue);
+ }
  
 }
 ?>
