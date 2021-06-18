@@ -11,6 +11,9 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       include $root . '/app/view/fragment/fragmentCovidMenu.html';
       include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
       ?>
+      
+      <h2><b>Vue app/view/innovation/viewOne</b></h2></br> 
+      
       <h3><b>Centre</b> : <?php echo $label ;?></h3>
       <?php echo("<h4><b>Adresse</b> :<a href='http://maps.google.com/maps?f=d&daddr=".$adresse."'>".$adresse."</a></h4>")?>
       <h4><b>Nombre total de doses</b> : <?php echo $total['total']?></h4>

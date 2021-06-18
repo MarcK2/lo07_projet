@@ -18,7 +18,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
      echo ("<h4>Vaccin =>  " . $vaccin_id[1] . "</h4>");
      echo ("<h4>Quantite totale  =>  "   .$resultat. "</h4>");
     echo("</div>");
-    
+    echo("</div>");
     include $root . '/app/view/fragment/fragmentCovidFooter.html';
     ?>
     <!-- ----- fin viewInserted -->    

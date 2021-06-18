@@ -21,7 +21,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
              foreach($results as $element){
                echo("<option>");
                     printf("%d : %s : %d", $element->getId(), 
-             $element->getLabel(), $element->getDoses());
+             $element->getLabel(), $element->getAdresse());
              }
              ?>
         </select>

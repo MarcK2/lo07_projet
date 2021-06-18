@@ -20,6 +20,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
      echo ("<li>Nouvelle adresse = " . $centre_adresse . "</li>");
      echo("</ul>");
     echo("</div>");
+    echo("</div>");
     
     include $root . '/app/view/fragment/fragmentCovidFooter.html';
     ?>
