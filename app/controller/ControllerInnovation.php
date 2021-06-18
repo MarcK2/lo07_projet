@@ -11,7 +11,7 @@ require_once '../model/ModelCentre.php';
   $results = ModelCentre::getAll();
   // ----- Construction chemin de la vue
   include 'config.php';
-  $vue = $root . '/app/view/innovation/viewId.php';
+  $vue = $root . '/app/view/innovation/viewCentreId.php';
   if (DEBUG)
    echo ("ControllerInnovation : chooseCentre : vue = $vue");
   require ($vue);
@@ -68,6 +68,60 @@ public static function chooseVaccin() {
   require ($vue);
  }
  
+ public static function choosePatient() {
+  $results = ModelPatient::getAll();
+  // ----- Construction chemin de la vue
+  include 'config.php';
+  $vue = $root . '/app/view/innovation/viewPatientId.php';
+  if (DEBUG)
+   echo ("ControllerInnovation : choosePatient : vue = $vue");
+  require ($vue);
+ }
+ 
+ public static  function ShowRdv(){
+    $patient =explode(' : ',$_GET['patient']);
+   $patient_id=$patient[0];
+   $res=ModelRendezvous::getSituation($patient_id);
+   $situation=$res[0][0];
+   if($situation>0){
+     $query="select nom,prenom,centre.label as centre,vaccin.label as vaccin,max(injection) from centre,
+              vaccin,rendezvous,patient WHERE rendezvous.centre_id=centre.id AND
+              rendezvous.vaccin_id=vaccin.id and patient.id=rendezvous.patient_id 
+              and patient.id=".$patient_id." ";
+     $results= ModelRendezvous::getMany($query);    
+include 'config.php';     
+  $vue = $root . '/app/view/innovation/viewDeleteRdv.php';
+  if (DEBUG)
+   echo ("ControllerInnovation : ShowRdv : vue = $vue");
+  require ($vue);     
+   }
+ }
+ 
+ public static function DeleteRdv(){
+     $patient_id=$_GET["patient_id"];
+     //$centre_id= ;
+     $injection=$_GET["injection"]  ;
+     $vaccin_id=$_GET["vaccin_id"];
+     $choice=$_GET["choix"];
+     if($choice=='YES'){
+          $query="select quantite in stock where centre_id='".$centre_id."' and vaccin_id='".$vaccin_id."'";
+     $resu= ModelStock::getMany($query);
+     $quantite=$resu[0][0]["quantite"];
+     $quantite=$quantite+2;
+      $results=ModelRendezvous::delete($patient_id, $vaccin_id, $centre_id, $injection);
+     $res= ModelStock::update($centre_id, $vaccin_id, $quantite);
+     }
+     
+    
+     
+     $vue = $root . '/app/view/innovation/viewDeleted.php';
+  if (DEBUG)
+   echo ("ControllerInnovation : DeletedRdv : vue = $vue");
+  require ($vue);     
+   }
+ 
+
+
  
  public static function documentation1() {
   
