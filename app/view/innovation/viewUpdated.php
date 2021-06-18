@@ -1,5 +1,5 @@
 
-<!-- ----- début viewInserted -->
+<!-- ----- début viewUpdated -->
 <?php
 require ($root . '/app/view/fragment/fragmentCovidHeader.html');
 ?>
@@ -17,7 +17,7 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
      echo ("<h3>L'adresse du centre a été mise à jour </h3>");
      echo("<ul>");
      echo ("<li>Centre  = " . $centre[1] . "</li>");
-     echo ("<li>Nouvelle adresse = " . $_GET['adresse'] . "</li>");
+     echo ("<li>Nouvelle adresse = " . $centre_adresse . "</li>");
      echo("</ul>");
     echo("</div>");
     

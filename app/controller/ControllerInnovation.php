@@ -82,7 +82,7 @@ public static function centreUpdated() {
     $centre =explode(' : ',$_GET['centre']);
    $centre_id=$centre[0];
    $centre_adresse=$_GET["adresse"];
-    $results = ModelCentre::update($centre_id, $adresse);
+    $results = ModelCentre::update($centre_id, $centre_adresse);
   
   // ----- Construction chemin de la vue
   include 'config.php';
