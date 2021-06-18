@@ -12,12 +12,12 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
       ?>
       
-      <h2><b>Vue Centre viewId</b></h2> 
+      <h2><b>Vue app/view/innovation/viewCentreId</b></h2> 
 
    <form role="form" method='get' action='router2.php'>
       <div class="form-group">
         <input type="hidden" name='action' value='ReadOneCentre'>
-        <label for="id">id : </label> 
+        <label for="id">Choisisez votre centre :  </label> 
         <select class="form-control" id='patient' name='centre' style="width: 400px">
             <?php
              foreach($results as $element){

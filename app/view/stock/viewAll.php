@@ -12,6 +12,8 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
       ?>
       
+    <h2><b>Vue app/view/stock/viewAll</b></h2>
+      
     <table class = "table table-striped table-bordered">
       <thead>
         <tr>

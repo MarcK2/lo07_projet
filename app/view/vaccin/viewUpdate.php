@@ -27,7 +27,7 @@ require_once '../model/ModelVaccin.php';
              ?>
         </select>
         <label for="doses">Saisissez la dose : </label> <br>
-        <input type="number" step='any' name='doses' value='10'>                
+        <input type="number" step='any' name='doses' value='2'>                
       </div>
       <p/>
       <button class="btn btn-primary" type="submit">Go</button>

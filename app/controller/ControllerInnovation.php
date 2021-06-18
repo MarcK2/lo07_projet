@@ -11,7 +11,7 @@ require_once '../model/ModelCentre.php';
   $results = ModelCentre::getAll();
   // ----- Construction chemin de la vue
   include 'config.php';
-  $vue = $root . '/app/view/innovation/viewId.php';
+  $vue = $root . '/app/view/innovation/viewCentreId.php';
   if (DEBUG)
    echo ("ControllerInnovation : chooseCentre : vue = $vue");
   require ($vue);
@@ -90,6 +90,12 @@ public static function chooseVaccin() {
   require ($vue);
  }
  
+ public static function documentation4() {
+  
+  include 'config.php';
+  $vue = $root . '/app/view/documentation/viewAvis.php';
+  require ($vue);
+ }
  
 }
 ?>

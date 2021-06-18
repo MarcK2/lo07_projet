@@ -12,6 +12,8 @@ require ($root . '/app/view/fragment/fragmentCovidHeader.html');
       include $root . '/app/view/fragment/fragmentCovidJumbotron.html';
       ?>
       
+      <h2><b>Vue app/view/rendezvous/viewChooseCentre</b></h2>
+      
       <?php if($results[2]==0) {
            echo('<h2><b>Vue Centre ChooseCentre</b></h2> ');
           echo(" <p>Ce patient n'a rien reçu aucune injection.</p>");
