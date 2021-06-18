@@ -8,7 +8,7 @@ require_once '../model/ModelCentre.php';
 class ControllerStock{
  
 
- // --- Liste des centre , caccins et doses
+ // --- Liste des centre , vaccins et doses
  public static function stockReadAll() {
   $results = ModelStock::getAll();
   // ----- Construction chemin de la vue
@@ -19,6 +19,7 @@ class ControllerStock{
   require ($vue);
  }
  
+ //
  public static function stockReadDose() {
   $results = ModelStock::getMany("select label,sum(quantite)as doses from stock,centre "
           . "WHERE stock.centre_id=centre.id GROUP by label ORDER by doses DESC");
@@ -34,7 +35,7 @@ class ControllerStock{
 
 
 
- // Affiche le formulaire de creation d'une récolte
+ // Affiche le formulaire de creation d'un stock
  public static function stockCreate($args) {   
      $target= $args['target'];
       
@@ -48,7 +49,7 @@ class ControllerStock{
   require ($vue);
  }
 
- // Affiche un formulaire pour récupérer les informations d'un nouveau vin.
+ // Affiche un formulaire pour récupérer les informations d'un nouveau stock.
  // La clé est gérée par le systeme et pas par l'internaute
  public static function stockCreated() {
   // ajouter une validation des informations du formulaire
@@ -65,6 +66,6 @@ class ControllerStock{
  
 }
 ?>
-<!-- ----- fin ControllerVin -->
+<!-- ----- fin ControllerStock -->
 
 
